@@ -16,8 +16,8 @@
             background: #000;
             color: white;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            justify-content: flex-start; /* Align content to the left */
+            align-items: flex-start; /* Align content to the top */
             position: relative;
         }
         #background {
@@ -31,7 +31,8 @@
             z-index: -1;
         }
         #content {
-            text-align: center;
+            text-align: left; /* Align text to the left */
+            padding: 20px; /* Add some padding */
             z-index: 1;
         }
         #content h1 {
