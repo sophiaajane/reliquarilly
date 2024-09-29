@@ -3,9 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello World</title>
+    <title>Reliquarilly</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
+            overflow: hidden;
+        }
+        #background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+            transition: background-image 1s ease;
+        }
+        #player-controls {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            align-items: center;
+        }
+        button {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin: 0 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #555;
+        }
+        audio {
+            display: none;
+        }
+        #title {
+            color: white;
+            font-size: 2em;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 1;
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello Sophia</h1>
+
+    <div id="title">Reliquarilly</div>
+
+    <div id="background"></div>
+
+    <div id="player-controls">
+        <button id="prev">⏮️</button>
+        <button id="play">▶️</button>
+        <button id="pause">⏸️</button>
+        <button id="next">⏭️</button>
+    </div>
+
+    <audio id="audio-player" src=""></audio>
+
+    <script>
+        const songs = [
+            {
+                src: 'music/song1.mp3',
+                artwork: 'images/artwork1.jpg'
+            },
+            {
+                src: 'music/song2.mp3',
+                artwork: 'images/artwork2.jpg'
+            },
+            {
+                src: 'music/song3.mp3',
+                artwork: 'images/artwork3.jpg'
+            }
+        ];
+
+        let currentSongIndex = 0;
+        const audioPlayer = document.getElementById('audio-player');
+        const background = document.getElementById('background');
+        const playButton = document.getElementById('play');
+        const pauseButton = document.getElementById('pause');
+        const nextButton = document.getElementById('next');
+        const prevButton = document.getElementById('prev');
+
+        function loadSong(index) {
+            audioPlayer.src = songs[index].src;
+            background.style.backgroundImage = `url(${songs[index].artwork})`;
+            audioPlayer.play();
+        }
+
+        playButton.addEventListener('click', () => {
+            audioPlayer.play();
+        });
+
+        pauseButton.addEventListener('click', () => {
+            audioPlayer.pause();
+        });
+
+        nextButton.addEventListener('click', () => {
+            currentSongIndex = (currentSongIndex + 1) % songs.length;
+            loadSong(currentSongIndex);
+        });
+
+        prevButton.addEventListener('click', () => {
+            currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
+            loadSong(currentSongIndex);
+        });
+
+        audioPlayer.addEventListener('ended', () => {
+            currentSongIndex = (currentSongIndex + 1) % songs.length;
+            loadSong(currentSongIndex);
+        });
+
+        // Load the first song when the page loads
+        window.onload = () => {
+            loadSong(currentSongIndex);
+        };
+    </script>
+
 </body>
 </html>
