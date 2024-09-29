@@ -13,61 +13,61 @@
         body, html {
             height: 100%;
             font-family: Arial, sans-serif;
-            color: white;
-            position: relative;
             background: url('image.png') no-repeat center center; /* Background image */
-            background-size: cover; /* Cover entire background */
+            background-size: cover; /* Full screen background */
         }
         #content {
             position: absolute;
             top: 20px;
             left: 20px;
-            z-index: 1; /* Ensure it stays above the background */
         }
         #content h1 {
-            font-size: 3rem; /* Title font size */
+            font-size: 2.5rem; /* Title font size */
+            color: white;
         }
         .audio-controls {
             position: fixed;
             bottom: 20px;
             left: 20px;
             display: flex;
-            gap: 10px; /* Space between buttons */
+            align-items: center;
+            gap: 10px;
         }
         .button {
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.2); /* Slightly transparent */
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
+            width: 50px; /* Set width for button */
+            height: 50px; /* Set height for button */
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.2); /* Transparent buttons */
             display: flex;
             align-items: center;
             justify-content: center;
-            opacity: 0.8; /* Slightly transparent */
-            transition: background-color 0.3s;
+            color: white;
+            font-size: 1.5rem;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
         }
         .button:hover {
-            background-color: rgba(255, 255, 255, 0.4); /* Brighter on hover */
+            background-color: rgba(255, 255, 255, 0.4); /* Hover effect */
         }
-        .play-button {
-            width: 0;
-            height: 0;
-            border-left: 20px solid transparent;
-            border-right: 20px solid transparent;
-            border-top: 30px solid white; /* Play triangle */
-            cursor: pointer;
+        .play-button::before {
+            content: "▶"; /* Play symbol */
+        }
+        .pause-button::before {
+            content: "⏸"; /* Pause symbol */
+        }
+        .skip-button {
+            font-size: 1.2rem; /* Size for skip buttons */
         }
         audio {
-            display: none; /* Hide the default audio player */
+            display: none; /* Hide default audio player */
         }
     </style>
 </head>
 <body>
 
     <div id="content">
-        <h1>Reliquarilly</h1> <!-- Title in upper left corner -->
+        <h1>Reliquarilly</h1>
     </div>
 
     <audio id="audio" loop>
@@ -76,25 +76,27 @@
     </audio>
 
     <div class="audio-controls">
-        <button class="button" onclick="skipBackward()">⏪</button> <!-- Skip backward button -->
-        <div class="play-button" onclick="togglePlay()"></div> <!-- Play button -->
-        <button class="button" onclick="togglePause()">⏸️</button> <!-- Pause button -->
-        <button class="button" onclick="skipForward()">⏩</button> <!-- Skip forward button -->
+        <button class="button skip-button" onclick="skipBackward()">⏮</button> <!-- Skip backward button -->
+        <button class="button play-button" id="playPauseButton" onclick="togglePlayPause()"></button> <!-- Play/Pause button -->
+        <button class="button skip-button" onclick="skipForward()">⏭</button> <!-- Skip forward button -->
     </div>
 
     <script>
         const audio = document.getElementById('audio');
+        const playPauseButton = document.getElementById('playPauseButton');
+        let isPlaying = false;
 
-        function togglePlay() {
-            if (audio.paused) {
-                audio.play(); // Play the audio
+        function togglePlayPause() {
+            if (isPlaying) {
+                audio.pause();
+                playPauseButton.classList.remove('pause-button');
+                playPauseButton.classList.add('play-button');
             } else {
-                audio.pause(); // Pause the audio if already playing
+                audio.play();
+                playPauseButton.classList.remove('play-button');
+                playPauseButton.classList.add('pause-button');
             }
-        }
-
-        function togglePause() {
-            audio.pause(); // Pause the audio
+            isPlaying = !isPlaying;
         }
 
         function skipForward() {
