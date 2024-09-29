@@ -12,58 +12,52 @@
         }
         body, html {
             height: 100%;
-            font-family: 'Arial', sans-serif;
+            font-family: Arial, sans-serif;
             color: white;
             position: relative;
             background: url('image.png') no-repeat center center; /* Background image */
             background-size: cover; /* Cover entire background */
         }
         #content {
-            position: absolute; /* Make content position absolute */
-            top: 20px; /* Position from top */
-            left: 20px; /* Position from left */
+            position: absolute;
+            top: 20px;
+            left: 20px;
             z-index: 1; /* Ensure it stays above the background */
         }
         #content h1 {
-            font-size: 4rem; /* Title font size */
+            font-size: 3rem; /* Title font size */
         }
         .audio-controls {
-            position: fixed; /* Fixed position for audio controls */
-            bottom: 20px; /* Position from bottom */
-            left: 20px; /* Position from left */
-            display: flex; /* Align buttons in a row */
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
             gap: 10px; /* Space between buttons */
         }
         .button {
-            background-color: rgba(255, 255, 255, 0.2); /* Slightly transparent background */
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.2); /* Slightly transparent */
             color: white;
-            border: none; /* Remove default border */
+            border: none;
             cursor: pointer;
-            width: 40px; /* Set a fixed width */
-            height: 40px; /* Set a fixed height */
-            display: flex; /* Center the icon */
-            align-items: center; /* Center vertically */
-            justify-content: center; /* Center horizontally */
-            border-radius: 5px; /* Slight rounding for the buttons */
-            opacity: 0.8; /* Slightly less transparent */
-            transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.8; /* Slightly transparent */
+            transition: background-color 0.3s;
         }
         .button:hover {
-            background-color: rgba(255, 255, 255, 0.4); /* Brighter background on hover */
-            transform: scale(1.1); /* Slightly enlarge on hover */
+            background-color: rgba(255, 255, 255, 0.4); /* Brighter on hover */
         }
         .play-button {
-            width: 0; /* No width for the triangle */
-            height: 0; /* No height for the triangle */
-            border-left: 20px solid transparent; /* Left side of triangle */
-            border-right: 20px solid transparent; /* Right side of triangle */
-            border-top: 30px solid white; /* Top side of triangle */
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 30px solid white; /* Play triangle */
             cursor: pointer;
-            margin: 0; /* Remove margin */
-        }
-        .skip-button {
-            font-size: 1.5rem; /* Increase font size for skip buttons */
-            line-height: 1; /* Center icon vertically */
         }
         audio {
             display: none; /* Hide the default audio player */
@@ -82,10 +76,10 @@
     </audio>
 
     <div class="audio-controls">
-        <button class="button skip-button" onclick="skipBackward()">⏪</button> <!-- Skip backward button -->
+        <button class="button" onclick="skipBackward()">⏪</button> <!-- Skip backward button -->
         <div class="play-button" onclick="togglePlay()"></div> <!-- Play button -->
         <button class="button" onclick="togglePause()">⏸️</button> <!-- Pause button -->
-        <button class="button skip-button" onclick="skipForward()">⏩</button> <!-- Skip forward button -->
+        <button class="button" onclick="skipForward()">⏩</button> <!-- Skip forward button -->
     </div>
 
     <script>
@@ -95,14 +89,12 @@
             if (audio.paused) {
                 audio.play(); // Play the audio
             } else {
-                audio.pause(); // Pause if already playing
+                audio.pause(); // Pause the audio if already playing
             }
         }
 
         function togglePause() {
-            if (!audio.paused) {
-                audio.pause(); // Pause the audio
-            }
+            audio.pause(); // Pause the audio
         }
 
         function skipForward() {
