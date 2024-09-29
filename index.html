@@ -57,8 +57,13 @@
             height: 0; /* No height for the triangle */
             border-left: 20px solid transparent; /* Left side of triangle */
             border-right: 20px solid transparent; /* Right side of triangle */
-            border-bottom: 30px solid white; /* Bottom side of triangle */
+            border-top: 30px solid white; /* Top side of triangle */
             cursor: pointer;
+            margin: 0; /* Remove margin */
+        }
+        .skip-button {
+            font-size: 1.5rem; /* Increase font size for skip buttons */
+            line-height: 1; /* Center icon vertically */
         }
         audio {
             display: none; /* Hide the default audio player */
@@ -77,10 +82,10 @@
     </audio>
 
     <div class="audio-controls">
-        <button class="button" onclick="skipBackward()">⏪</button> <!-- Skip backward button -->
+        <button class="button skip-button" onclick="skipBackward()">⏪</button> <!-- Skip backward button -->
         <div class="play-button" onclick="togglePlay()"></div> <!-- Play button -->
         <button class="button" onclick="togglePause()">⏸️</button> <!-- Pause button -->
-        <button class="button" onclick="skipForward()">⏩</button> <!-- Skip forward button -->
+        <button class="button skip-button" onclick="skipForward()">⏩</button> <!-- Skip forward button -->
     </div>
 
     <script>
@@ -89,6 +94,8 @@
         function togglePlay() {
             if (audio.paused) {
                 audio.play(); // Play the audio
+            } else {
+                audio.pause(); // Pause if already playing
             }
         }
 
