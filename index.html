@@ -55,4 +55,37 @@
         .button:hover {
             background-color: rgba(255, 255, 255, 0.4);
         }
-        
+        /* Style for the play button in the bottom left */
+        .play-button {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 20px;
+            border-radius: 50%;
+            border: 2px solid white;
+            font-size: 2rem;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        .play-button:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="background"></div>
+
+    <div id="content">
+        <h1>Reliquarilly</h1>
+        <p>Relax. Unwind. Stay awhile.</p>
+    </div>
+
+    <!-- Play button in the bottom left corner -->
+    <div class="play-button">▶️</div>
+
+</body>
+</html>
