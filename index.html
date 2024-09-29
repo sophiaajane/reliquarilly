@@ -27,23 +27,38 @@
         #content h1 {
             font-size: 4rem; /* Title font size */
         }
-        .play-button {
-            position: fixed; /* Fixed position for the play button */
+        .audio-controls {
+            position: fixed; /* Fixed position for audio controls */
             bottom: 20px; /* Position from bottom */
             left: 20px; /* Position from left */
-            background-color: rgba(255, 255, 255, 0.1);
-            color: white;
-            padding: 20px;
-            border-radius: 50%;
-            border: 2px solid white;
-            font-size: 2rem;
-            cursor: pointer;
-            opacity: 0.8;
-            transition: opacity 0.3s ease;
-            z-index: 1; /* Ensure it stays above the background */
+            display: flex; /* Align buttons in a row */
+            gap: 10px; /* Space between buttons */
         }
-        .play-button:hover {
-            opacity: 1;
+        .button {
+            background-color: rgba(255, 255, 255, 0.2); /* Slightly transparent background */
+            color: white;
+            border: none; /* Remove default border */
+            cursor: pointer;
+            width: 40px; /* Set a fixed width */
+            height: 40px; /* Set a fixed height */
+            display: flex; /* Center the icon */
+            align-items: center; /* Center vertically */
+            justify-content: center; /* Center horizontally */
+            border-radius: 5px; /* Slight rounding for the buttons */
+            opacity: 0.8; /* Slightly less transparent */
+            transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+        }
+        .button:hover {
+            background-color: rgba(255, 255, 255, 0.4); /* Brighter background on hover */
+            transform: scale(1.1); /* Slightly enlarge on hover */
+        }
+        .play-button {
+            width: 0; /* No width for the triangle */
+            height: 0; /* No height for the triangle */
+            border-left: 20px solid transparent; /* Left side of triangle */
+            border-right: 20px solid transparent; /* Right side of triangle */
+            border-bottom: 30px solid white; /* Bottom side of triangle */
+            cursor: pointer;
         }
         audio {
             display: none; /* Hide the default audio player */
@@ -57,11 +72,16 @@
     </div>
 
     <audio id="audio" loop>
-        <source src="cocteau-twins-iceblink-luck.mp3" type="audio/mpeg"> <!-- Replace with your audio file -->
+        <source src="your-audio-file.mp3" type="audio/mpeg"> <!-- Replace with your audio file -->
         Your browser does not support the audio element.
     </audio>
 
-    <div class="play-button" onclick="togglePlay()">▶️</div> <!-- Play button in bottom left corner -->
+    <div class="audio-controls">
+        <button class="button" onclick="skipBackward()">⏪</button> <!-- Skip backward button -->
+        <div class="play-button" onclick="togglePlay()"></div> <!-- Play button -->
+        <button class="button" onclick="togglePause()">⏸️</button> <!-- Pause button -->
+        <button class="button" onclick="skipForward()">⏩</button> <!-- Skip forward button -->
+    </div>
 
     <script>
         const audio = document.getElementById('audio');
@@ -69,9 +89,21 @@
         function togglePlay() {
             if (audio.paused) {
                 audio.play(); // Play the audio
-            } else {
+            }
+        }
+
+        function togglePause() {
+            if (!audio.paused) {
                 audio.pause(); // Pause the audio
             }
+        }
+
+        function skipForward() {
+            audio.currentTime += 10; // Skip forward 10 seconds
+        }
+
+        function skipBackward() {
+            audio.currentTime -= 10; // Skip backward 10 seconds
         }
     </script>
 
